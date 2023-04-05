@@ -27,7 +27,7 @@ resource "aws_subnet" "subnet_cloudy" {
 }
 
 resource "aws_network_interface" "foo" {
-  subnet_id   = aws_subnet.my_subnet.id
+  subnet_id   = aws_subnet.subnet_cloudy.id
   private_ips = ["172.16.10.100"]
 
   tags = {

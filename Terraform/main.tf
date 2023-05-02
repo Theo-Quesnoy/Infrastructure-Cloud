@@ -12,27 +12,27 @@ provider "aws" {
   region = "eu-west-3"
 }
 
-resource "aws_vpc" "vpc_cloudy" {
+resource "aws_vpc" "vpc_cloudy" { # VMs network
   cidr_block = "172.31.0.0/16"
 }
 
-resource "aws_subnet" "subnet_cloudy" {
+resource "aws_subnet" "subnet_cloudy" { # VMs subnet
   vpc_id            = aws_vpc.vpc_cloudy.id
   cidr_block        = "172.31.10.0/24"
   availability_zone = "eu-west-3c"
 }
 
-resource "aws_network_interface" "node1" {
+resource "aws_network_interface" "node1" { # VM 1 network interface
   subnet_id   = aws_subnet.subnet_cloudy.id
   private_ips = ["172.31.10.100"]
 }
 
-resource "aws_network_interface" "node2" {
+resource "aws_network_interface" "node2" { # VM 2 network interface
   subnet_id   = aws_subnet.subnet_cloudy.id
   private_ips = ["172.31.10.200"]
 }
 
-resource "aws_instance" "node1" {
+resource "aws_instance" "node1" { # First VM config
   ami           = "ami-002ff2c881c910aa8" # eu-west-3
   instance_type = "t2.micro"
 
@@ -50,7 +50,7 @@ resource "aws_instance" "node1" {
   }
 }
 
-resource "aws_instance" "node2" {
+resource "aws_instance" "node2" { # Second VM config
   ami           = "ami-002ff2c881c910aa8" # eu-west-3
   instance_type = "t2.micro"
 
